@@ -1,9 +1,11 @@
 using BlazingBlob.WebUI.Server.Components;
+using BlazingBlob.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents();
+builder.Services.AddApplication();
 
 var app = builder.Build();
 

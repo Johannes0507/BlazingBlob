@@ -1,0 +1,35 @@
+﻿@page "/articles"
+@inject IArticleService ArticleService
+@attribute [StreamRendering]
+
+<PageTitle>Articles</PageTitle>
+
+@if(articles.Count == 0)
+{
+    <p>Loading...</p>
+}
+else
+{
+    foreach(var article in articles)
+    {
+        <h4>@article.Title</h4>
+        <p>@article.Content</p>
+        <small>@article.DatePublished</small>
+    }
+}
+
+
+@code {
+    private List<Article> articles = new List<Article>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(1000);
+
+        var result = ArticleService.GetAllArticle();
+        if (result is not null)
+            articles = result;
+
+        await base.OnInitializedAsync();
+    }
+}
