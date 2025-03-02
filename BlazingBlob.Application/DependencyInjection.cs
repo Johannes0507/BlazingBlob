@@ -7,7 +7,12 @@ namespace BlazingBlob.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddTransient<IArticleService, ArticleService>();
+            services.AddMediatR(configuration =>
+            {
+                // Automatically register all handlers from the assembly of the specified type
+                configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+            });
+
             return services;
         }
     }
